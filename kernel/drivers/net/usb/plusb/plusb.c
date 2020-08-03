@@ -90,7 +90,7 @@ static int pl_reset(struct usbnet *dev)
 }
 
 static const struct driver_info	prolific_info = {
-	.description =	"Prolific PL-2301/PL-2302/PL-25A1/PL-27A1",
+	.description =	"Prolific PL-2301/PL-2302/PL-25A1/PL-27x1",
 	.flags =	FLAG_POINTTOPOINT | FLAG_NO_SETINT,
 		/* some PL-2302 versions seem to fail usb_set_interface() */
 	.reset =	pl_reset,
@@ -140,6 +140,13 @@ static const struct usb_device_id	products [] = {
 	.driver_info =  (unsigned long) &prolific_info,
 },
 
+{
+	USB_DEVICE(0x067b, 0x2701),     /* PL-2701?
+					 * j5Create USB3.0 Wormhole (JUC500)
+					 */
+	.driver_info =  (unsigned long) &prolific_info,
+},
+
 	{ },		// END
 };
 MODULE_DEVICE_TABLE(usb, products);
@@ -157,5 +164,5 @@ static struct usb_driver plusb_driver = {
 module_usb_driver(plusb_driver);
 
 MODULE_AUTHOR("David Brownell");
-MODULE_DESCRIPTION("Prolific PL-2301/2302/25A1/27A1 USB Host to Host Link Driver");
+MODULE_DESCRIPTION("Prolific PL-2301/2302/25A1/27x1 USB Host to Host Link Driver");
 MODULE_LICENSE("GPL");
