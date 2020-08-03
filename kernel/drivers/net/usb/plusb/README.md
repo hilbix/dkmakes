@@ -1,6 +1,6 @@
 # PL-2701 chip changes to the Linux plusb module
 
-This adds the [j5create JUC500 USB 3.0 Wormhole Switch] to the Kernel's `plusb` driver.
+This adds the [j5create JUC500 USB 3.0 Wormhole Switch](https://en.j5create.com/products/juc500) to the Kernel's `plusb` driver.
 
 Note, that this here is not always needed.
 Everything works right out of the box using the `rndis` driver, as follows:
