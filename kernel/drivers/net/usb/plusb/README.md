@@ -15,16 +15,26 @@ Everything works right out of the box using the `rndis` driver, as follows:
   - `ping 172.17.17.1` from the second machine works
 - Beware of NetworkManager, it likes to remove the IP on new interfaces
 
-Test results:
+Results at my side (YMMV):
 
 - Kernel 5.4.0 USB 3.0: 1 CPU maxed out gives me around 130 MiB/s (Comparable to Gigabit Ethernet performance)
 - Kernel 4.9.0 USB 2.0: fail (USB enumeration fails).
-- YMMV
 
-With this module:
+With this module here:
 
-- A second USB network device shows up.
-- The `rndis` driver is no more used.
+- A second USB network device shows up (`usb1` at my side).
+  - Note that `usb1` and `usb0` are incompatible transports,
+    so they should not span the same net.
+- The `rndis` driver is not used for this "new" interface.
+- This allows to use a higher MTU (tested: 60000)
+  which is needed to reduce the high CPU demand on the receiving side.
+- With MTU 60000 I got transfer speeds to 160 MiB/s
+  which is significantly above Gigabit Ethernet speed.
+- But beware of NetworkManager, it likes to remove the IP on unconfigured interfaces
+
+> Perhaps it is not NetworkManager but unstable USB3.
+> So it might be that each time something weird happens on USB3,
+> NM resets the link.
 
 
 ## Source this is based on
@@ -40,7 +50,6 @@ With this module:
 	git clone -b plusb https://github.com/hilbix/dkmakes.git
 	cd dkmakes
 	sudo make
-
 
 Notes:
 
